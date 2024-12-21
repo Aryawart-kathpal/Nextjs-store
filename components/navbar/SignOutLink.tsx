@@ -1,6 +1,21 @@
+'use client'
+
+import { SignOutButton } from "@clerk/nextjs";
+import { useToast } from "../ui/use-toast"
+import Link from "next/link";
+
 function SignOutLink() {
+  const {toast} = useToast();
+  const handleLogout = ()=>{
+    toast({description:'Logout successful'});
+  }
+  // <SignOutButton redirectUrl="/"> to redirect SignOutButton also accepts props, but sometimes it doesn't work as expected, so we handle it differently and use a Link Component inside the clerk SignOutButton
   return (
-    <div>SignOutLink</div>
+    <SignOutButton>
+      <Link href='/' className="w-full text-left" onClick={handleLogout}>
+        Logout
+      </Link>
+    </SignOutButton>
   )
 }
 export default SignOutLink
