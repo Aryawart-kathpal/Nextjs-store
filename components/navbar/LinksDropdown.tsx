@@ -12,6 +12,7 @@ import { links } from '@/utils/links';
 import UserIcon from './UserIcon';
 import { SignedIn, SignedOut, SignInButton,SignUpButton } from '@clerk/nextjs';
 import SignOutLink from './SignOutLink';
+import { auth } from '@clerk/nextjs/server';
 
 // SignedOut and SignedIn components are straightway provided by clerk, that's why no need to fetch the whole user or userId, just use these components
 
@@ -19,6 +20,8 @@ import SignOutLink from './SignOutLink';
 // SignOutLink for signing out also provided by clerk
 
 function LinksDropdown() {
+  const {userId} = auth();
+  const isAdmin = userId === process.env.ADMIN_USER_ID;
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -48,13 +51,14 @@ function LinksDropdown() {
 
         <SignedIn>
 
-        {links.map((link)=>{
-          return <DropdownMenuItem key={link.href}>
-            <Link href={link.href} className='capitalize w-full'>
-              {link.label}
-            </Link>
-          </DropdownMenuItem>
-        })}        
+          {links.map((link)=>{
+            if(link.label ==='dashboard' && !isAdmin) return null;
+            return <DropdownMenuItem key={link.href}>
+              <Link href={link.href} className='capitalize w-full'>
+                {link.label}
+              </Link>
+            </DropdownMenuItem>
+          })}        
           <DropdownMenuSeparator/>
           <DropdownMenuItem>
             <SignOutLink/>
