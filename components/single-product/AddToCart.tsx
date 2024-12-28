@@ -1,6 +1,5 @@
 'use client'
 import { useState } from "react";
-import { Button } from "../ui/button"
 import { useAuth } from "@clerk/nextjs";
 import SelectProductAmount, { Mode } from "./SelectProductAmount";
 import { ProductSignInButton, SubmitButton } from "../form/Buttons";

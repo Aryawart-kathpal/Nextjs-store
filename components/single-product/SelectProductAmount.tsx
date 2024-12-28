@@ -34,7 +34,7 @@ function SelectProductAmount(props:SelectProductAmountProps | SelectCartItemAmou
 
             {/*On cart page we will display a +10 items of what are selected on the product page */}
 
-            <SelectContent>a
+            <SelectContent>
                 {Array.from({length:cartItem?amount+10:10},(_,index)=>{
                     const selectValue = (index+1).toString();
                     return(
